@@ -1,15 +1,28 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import addBookThunk from "../redux/books/thunk/addBookThunk";
+import updateBookThunk from "../redux/books/thunk/updateBookThunk";
 const AddBook = () => {
-  const [name, setName] = useState("");
-  const [author, setAuthor] = useState("");
-  const [thumbnail, setThumbnail] = useState("");
-  const [price, setPrice] = useState(0);
-  const [rating, setRating] = useState(5);
-  const [featured, setFeatured] = useState(false);
-
+  const edit = useSelector((state) => state.edit);
   const dispatch = useDispatch();
+  console.log("Edit", edit);
+  const [name, setName] = useState(edit.opened ? edit.name : "");
+  const [author, setAuthor] = useState(edit.opened ? edit.author : "");
+  const [thumbnail, setThumbnail] = useState(edit.opened ? edit.thumbnail : "");
+  const [price, setPrice] = useState(edit.opened ? edit.price : 0);
+  const [rating, setRating] = useState(edit.opened ? edit.rating : 5);
+  const [featured, setFeatured] = useState(edit.opened ? edit.featured : false);
+  useEffect(() => {
+    if (edit.opened) {
+      setName(edit.name);
+      setAuthor(edit.author);
+      setThumbnail(edit.thumbnail);
+      setPrice(edit.price);
+      setRating(edit.rating);
+      setFeatured(edit.featured);
+    }
+  }, [edit]);
+
   const toggleFeature = () => {
     setFeatured(!featured);
   };
@@ -23,9 +36,24 @@ const AddBook = () => {
       rating,
       featured,
     };
-    dispatch(addBookThunk(newBook));
+    const id = edit.id;
+
+    if (edit.opened) {
+      console.log({ id, newBook });
+      dispatch(updateBookThunk({ id, newBook }));
+    } else {
+      dispatch(addBookThunk(newBook));
+      setName("");
+      setAuthor("");
+      setThumbnail("");
+      setPrice("");
+      setRating("");
+      setFeatured("");
+    }
+
     // console.log(newBook);
   };
+
   return (
     <div>
       <div className="p-4 overflow-hidden bg-white shadow-cardShadow rounded-md">
@@ -53,6 +81,7 @@ const AddBook = () => {
               name="author"
               onChange={(e) => setAuthor(e.target.value)}
               value={author}
+              required
             />
           </div>
 

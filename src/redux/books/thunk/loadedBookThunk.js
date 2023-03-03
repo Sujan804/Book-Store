@@ -5,7 +5,7 @@ const loadedBookThunk = () =>{
         const response = await axios.get("http://localhost:9000/books",
         );
         const book = response.data;
-        // console.log("Books",response)
+        console.log("Books",response.data)
         dispatch(loadedBook(book))
     }
 }

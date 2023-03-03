@@ -8,6 +8,7 @@ const AllBookView = () => {
   const key = useSelector((state) => state.search.key).toLowerCase();
   const featured = useSelector((state) => state.search.featured);
   const filteredBooks = books.filter((book) => {
+    console.log("Jhamellaaa", book.name);
     const bookName = book.name.toLowerCase();
     const index = bookName.indexOf(key);
     if (featured) {
@@ -20,6 +21,8 @@ const AllBookView = () => {
       }
       return false;
     }
+
+    return false;
   });
 
   console.log("filered", filteredBooks);

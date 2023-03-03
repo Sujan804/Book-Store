@@ -21,7 +21,7 @@ const reducer = (state = initialState, action)=>{
             return [...updatedBooks1]
         case DELETE_BOOK:
             const updatedBooks2 = state.filter((book)=>book.id!==action.payload)
-            return updatedBooks2
+            return [...updatedBooks2]
         default:
             return [...state]
     }

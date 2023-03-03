@@ -1,7 +1,19 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import deleteBookThunk from "../redux/books/thunk/deleteBookThunk";
+import { editBook } from "../redux/edits/actions";
 
 const SingleBookView = ({ book }) => {
+  const dispatch = useDispatch();
+
   console.log("Book", book);
+  const deleteHandle = (id) => {
+    dispatch(deleteBookThunk(id));
+  };
+  const editHandle = (book) => {
+    console.log("editing..", book.id);
+    dispatch(editBook(book));
+  };
   return (
     <div className="book-card">
       <img
@@ -16,7 +28,7 @@ const SingleBookView = ({ book }) => {
           )}
 
           <div className="text-gray-500 space-x-2">
-            <button className="lws-edit">
+            <button className="lws-edit" onClick={() => editHandle(book)}>
               <svg
                 fill="none"
                 viewBox="0 0 24 24"
@@ -31,7 +43,10 @@ const SingleBookView = ({ book }) => {
                 />
               </svg>
             </button>
-            <button className="lws-delete">
+            <button
+              className="lws-delete"
+              onClick={() => deleteHandle(book.id)}
+            >
               <svg
                 fill="none"
                 viewBox="0 0 24 24"
