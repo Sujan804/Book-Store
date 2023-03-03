@@ -1,6 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { setKeyword } from "../redux/search/actions";
 
 const Header = () => {
+  const [key, setKey] = useState("");
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    console.log(key);
+    dispatch(setKeyword(key));
+  }, [key, dispatch]);
   return (
     <nav className="py-4 2xl:px-6">
       <div className="container flex items-center justify-between">
@@ -36,6 +45,8 @@ const Header = () => {
               placeholder="Filter books..."
               className="search"
               id="lws-searchBook"
+              value={key}
+              onChange={(e) => setKey(e.target.value)}
             />
           </div>
         </form>
