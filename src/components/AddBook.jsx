@@ -4,7 +4,7 @@ import addBookThunk from "../redux/books/thunk/addBookThunk";
 const AddBook = () => {
   const [name, setName] = useState("");
   const [author, setAuthor] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
+  const [thumbnail, setThumbnail] = useState("");
   const [price, setPrice] = useState(0);
   const [rating, setRating] = useState(5);
   const [featured, setFeatured] = useState(false);
@@ -18,7 +18,7 @@ const AddBook = () => {
     const newBook = {
       name,
       author,
-      imageUrl,
+      thumbnail,
       price,
       rating,
       featured,
@@ -47,7 +47,6 @@ const AddBook = () => {
           <div className="space-y-2">
             <label htmlFor="category">Author</label>
             <input
-              requiredhtmlFor
               className="text-input"
               type="text"
               id="input-Bookauthor"
@@ -65,8 +64,8 @@ const AddBook = () => {
               type="text"
               id="input-Bookthumbnail"
               name="thumbnail"
-              onChange={(e) => setImageUrl(e.target.value)}
-              value={imageUrl}
+              onChange={(e) => setThumbnail(e.target.value)}
+              value={thumbnail}
             />
           </div>
 

@@ -4,7 +4,7 @@ import loadedBookThunk from "../redux/books/thunk/loadedBookThunk";
 import SingleBookView from "./SingleBookView";
 const AllBookView = () => {
   const books = useSelector((state) => state.book);
-  console.log(books);
+  // console.log(books);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(loadedBookThunk());
@@ -12,7 +12,7 @@ const AllBookView = () => {
   return (
     <div className="lws-bookContainer">
       {books.map((book) => (
-        <SingleBookView />
+        <SingleBookView book={book} key={book.id} />
       ))}
     </div>
   );
